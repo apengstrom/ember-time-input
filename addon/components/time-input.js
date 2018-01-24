@@ -28,8 +28,15 @@ export default Ember.Component.extend({
   actions: {
     valueChanged(valueString) {
       var parsed = moment(valueString, this.get('format'));
-      this.set('invalid', !parsed.isValid());
+      this.set('value', parsed);
+      this.sendAction('action', parsed);
+    },
+
+    focusTaken(valueString) {
+      var parsed = moment(valueString, this.get('format'));
+
       if (parsed.isValid()) {
+        this.set('invalid', false);
         var oldDate = this.get('momentDate');
         var newDate = oldDate ? oldDate.clone() : moment();
         newDate.hours(parsed.hours());
@@ -39,8 +46,14 @@ export default Ember.Component.extend({
           newDate = newDate.toDate();
         }
 
-        this.set('value', newDate);
-        this.sendAction('action', newDate);
+        this.set('value', valueString);
+        //this.sendAction('action', newDate);
+      } else if(valueString == '') {
+        this.set('value', '');
+        this.set('invalid', false);
+        this.set('value', valueString);
+      } else {
+        this.set('invalid', !parsed.isValid());
       }
     }
   }
