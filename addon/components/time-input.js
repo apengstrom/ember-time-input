@@ -35,7 +35,7 @@ export default Ember.Component.extend({
     focusTaken(valueString) {
       var parsed = moment(valueString, this.get('format'));
 
-      if (parsed.isValid()) {
+      /*if (parsed.isValid()) {
         this.set('invalid', false);
         var oldDate = this.get('momentDate');
         var newDate = oldDate ? oldDate.clone() : moment();
@@ -54,7 +54,7 @@ export default Ember.Component.extend({
         this.set('value', valueString);
       } else {
         this.set('invalid', !parsed.isValid());
-      }
+      }*/
     }
   }
 });
